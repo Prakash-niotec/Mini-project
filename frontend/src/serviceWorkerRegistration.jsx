@@ -28,8 +28,29 @@ export function register(config) {
 			// serve assets; see https://github.com/facebook/create-react-app/issues/2374
 			return;
 		}
+	}
 
 		window.addEventListener('load', () => {
 			const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
 			if (isLocalhost) {
+				// This is running on localhost. Optionally, check for an existing service worker.
+				// For now, just skip registration on localhost.
+				return;
+			}
+
+			// Register service worker
+			navigator.serviceWorker
+				.register(swUrl)
+				.then(registration => {
+					if (config && config.onSuccess) {
+						config.onSuccess(registration);
+					}
+				})
+				.catch(error => {
+					if (config && config.onError) {
+						config.onError(error);
+					}
+				});
+		});
+	}

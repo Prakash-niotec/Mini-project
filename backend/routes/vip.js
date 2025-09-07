@@ -15,6 +15,14 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 	const { person_id, vip_code } = req.body;
 	try {
+		// Check if VIP_Customer already exists for this person or vip_code
+		const [existing] = await pool.query(
+			'SELECT * FROM VIP_Customer WHERE person_id = ? OR vip_code = ?',
+			[person_id, vip_code]
+		);
+		if (existing.length) {
+			return res.status(400).json({ error: 'VIP already exists for this person or VIP code.' });
+		}
 		const [result] = await pool.query(
 			'INSERT INTO VIP_Customer (person_id, vip_code) VALUES (?, ?)',
 			[person_id, vip_code]

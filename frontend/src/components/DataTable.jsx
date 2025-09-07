@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
-const DataTable = ({ columns, rows, loading }) => {
+const DataTable = ({ columns, rows, loading, getRowId }) => {
 	return (
 		<div style={{ height: 400, width: '100%' }}>
 			<DataGrid
@@ -12,6 +12,7 @@ const DataTable = ({ columns, rows, loading }) => {
 				loading={loading}
 				disableRowSelectionOnClick
 				autoHeight
+				{...(getRowId ? { getRowId } : {})}
 			/>
 		</div>
 	);

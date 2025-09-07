@@ -24,10 +24,16 @@ app.use('/parking', parkingRouter);
 app.use('/person', personRouter);
 app.use('/vehicle', vehicleRouter);
 app.use('/vip', vipRouter);
+
 app.use('/report', reportRouter);
 
 app.get('/', (req, res) => {
 	res.send('Mall Parking Management System API');
+});
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+	console.log(`Server running on port ${PORT}`);
 });
 
 module.exports = app;

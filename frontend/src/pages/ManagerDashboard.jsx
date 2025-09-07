@@ -1,5 +1,6 @@
 import React from 'react';
-import { Box, Typography, Paper, Grid, Divider } from '@mui/material';
+import { Box, Typography, Paper, Divider } from '@mui/material';
+import Grid from '@mui/material/Grid';
 
 const ManagerDashboard = () => {
 	return (

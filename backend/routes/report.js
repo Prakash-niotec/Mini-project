@@ -1,6 +1,18 @@
+
 const express = require('express');
 const router = express.Router();
 const pool = require('../db');
+
+// GET /report/records - All parking records
+router.get('/records', async (req, res) => {
+	const [rows] = await pool.query(`
+		SELECT r.record_id, r.person_id, r.vehicle_id, r.action, r.recorded_by, r.occurred_at
+		FROM Parking_Record r
+		ORDER BY r.occurred_at DESC
+		LIMIT 100
+	`);
+	res.json(rows);
+});
 
 // GET /report/frequent-customers - Most frequent customers
 router.get('/frequent-customers', async (req, res) => {
